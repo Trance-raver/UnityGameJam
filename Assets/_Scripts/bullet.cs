@@ -11,6 +11,8 @@ public class bullet : MonoBehaviour {
     public Sprite startSprite;
     public Sprite endSprite;
 
+    public GameObject sparks;
+
     public float spd = 10f;
     public float spriteChangeTime;
     public LayerMask whatIsSolid;
@@ -36,12 +38,16 @@ public class bullet : MonoBehaviour {
             {
 
                 Debug.Log("EnemyHit");
-
+                GameObject go = Instantiate(sparks, transform.position, transform.rotation);
+                Destroy(go, 0.4f);
+                StartCoroutine(hitInfo.transform.GetComponent<Alien_patrol>().gotHit());
             }
 
             else
             {
                 Debug.Log("Hit Solid");
+                GameObject go = Instantiate(sparks, transform.position, transform.rotation);
+                Destroy(go, 0.4f);
             }
 
             Destroy(this.gameObject);
@@ -58,14 +64,16 @@ public class bullet : MonoBehaviour {
 
     IEnumerator changesprite()
     {
-        transform.localScale = new Vector3(4f, 4f, 0);
+        //transform.localScale = new Vector3(4f, 4f, 0);
         sr.sprite = startSprite;
         
         yield return new WaitForSeconds(spriteChangeTime);
 
-        transform.localScale = new Vector3(3, 2.5f, 0);
+        //transform.localScale = new Vector3(3, 2.5f, 0);
         sr.sprite = endSprite;
 
 
     }
+
+
 }

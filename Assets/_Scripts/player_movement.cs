@@ -36,6 +36,17 @@ public class player_movement : MonoBehaviour
     public GameObject landedDust;
     public GameObject jumpDust;
 
+    //knockback Stuff
+    public float knockBackPower;
+    [HideInInspector]
+    public float knockBackCount;
+    public float knockBackLength;
+ 
+    public bool knockBackFromRight;
+    private bool knockBackOnce;
+
+
+   
 
     void Start()
     {
@@ -43,7 +54,7 @@ public class player_movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
-        aimer = GetComponentInChildren<gun_aim>();
+        aimer = GetComponentInChildren<gun_aim>();  
 
         StartCoroutine(changeIdelStates());
 
@@ -54,7 +65,7 @@ public class player_movement : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(isShooting);
+
         horizontalMove = Input.GetAxis("Horizontal");
 
         grounded = Physics2D.OverlapCircle(jumpPoint.transform.position, jumpPointRadius, whatIsGround);
@@ -79,6 +90,7 @@ public class player_movement : MonoBehaviour
 
                 sr.flipX = false;
                 dropWeaponPoint.transform.localPosition = new Vector3(1.031f, -0.219f, 0);
+                //knockBackFromRight = false;
 
             }
 
@@ -86,6 +98,7 @@ public class player_movement : MonoBehaviour
             {
                 sr.flipX = true;
                 dropWeaponPoint.transform.localPosition = new Vector3(-1.031f, -0.219f, 0);
+                //knockBackFromRight = true;
             }
 
 
@@ -146,21 +159,50 @@ public class player_movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (movingBack)
-        {
-            rb.velocity = new Vector2(horizontalMove * spd * 100 * Time.fixedDeltaTime, rb.velocity.y);
-        }
 
-        else
+        if (knockBackCount <= 0)
         {
-            if (isShooting)
-            {
-                rb.velocity = new Vector2(horizontalMove * backSpd * 100 * Time.fixedDeltaTime, rb.velocity.y);
-            }
-            else
+            knockBackOnce = true;
+
+            if (movingBack)
             {
                 rb.velocity = new Vector2(horizontalMove * spd * 100 * Time.fixedDeltaTime, rb.velocity.y);
+                anim.SetBool("movingBack", false);
             }
+
+            else
+            {
+                if (isShooting)
+                {
+                    rb.velocity = new Vector2(horizontalMove * backSpd * 100 * Time.fixedDeltaTime, rb.velocity.y);
+                    anim.SetBool("movingBack", true);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(horizontalMove * spd * 100 * Time.fixedDeltaTime, rb.velocity.y);
+                    anim.SetBool("movingBack", false);
+                }
+            }
+        }
+
+        else  //KnockBack
+        {
+            if (knockBackOnce)
+            {
+                knockBackOnce = false;
+
+                if (knockBackFromRight)
+                {
+                    rb.velocity = new Vector2(-knockBackPower, knockBackPower) * 100 * Time.fixedDeltaTime;
+                }
+
+                else
+                {
+                    rb.velocity = new Vector2(knockBackPower, knockBackPower) * 100 * Time.fixedDeltaTime;
+                }
+            }
+
+            knockBackCount -= Time.deltaTime;
         }
 
         // Jump Stuff
@@ -212,4 +254,6 @@ public class player_movement : MonoBehaviour
             }
         }
     }
+
+
 }

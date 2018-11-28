@@ -329,14 +329,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Scripts\bullet.cs" />
+    <Compile Include="Assets\_Scripts\cursor.cs" />
     <Compile Include="Assets\_Scripts\Gun.cs" />
     <Compile Include="Assets\_Scripts\gun_aim.cs" />
+    <Compile Include="Assets\_Scripts\hit_pause.cs" />
+    <Compile Include="Assets\_Scripts\lazer.cs" />
+    <Compile Include="Assets\_Scripts\mini_gun.cs" />
     <Compile Include="Assets\_Scripts\player_movement.cs" />
+    <Compile Include="Assets\_Scripts\playerHealth.cs" />
     <Compile Include="Assets\_Scripts\Weapon.cs" />
-    <Compile Include="Assets\cursor.cs" />
-    <Compile Include="Assets\hit_pause.cs" />
-    <Compile Include="Assets\lazer.cs" />
-    <Compile Include="Assets\mini_gun.cs" />
+    <Compile Include="Assets\Alien_patrol.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Scripts\CameraShakeInstance.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Scripts\CameraShakePresets.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Scripts\CameraShaker.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Scripts\Utilities\CameraUtilities.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

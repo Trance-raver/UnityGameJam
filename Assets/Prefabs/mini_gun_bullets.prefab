@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114427424671796280}
   m_Layer: 0
   m_Name: mini_gun_bullets
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,6 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSprite: {fileID: 21300004, guid: 8e0cfc502dda47f4f944ef936a2bb166, type: 3}
   endSprite: {fileID: 21300006, guid: 8e0cfc502dda47f4f944ef936a2bb166, type: 3}
+  sparks: {fileID: 1546612129715864, guid: 8652b36e323b11e4b848aa075af2932a, type: 2}
   spd: 35
   spriteChangeTime: 0.025
   whatIsSolid:

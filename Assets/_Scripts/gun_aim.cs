@@ -10,6 +10,8 @@ public class gun_aim : MonoBehaviour
     [HideInInspector]
     public bool holdingWeapon = false;
 
+    private Gun gun;
+    public GameObject reloadingObj;
 
     [HideInInspector]
     public float rotz;
@@ -37,6 +39,19 @@ public class gun_aim : MonoBehaviour
                 transform.GetChild(0).localScale = new Vector3(transform.GetChild(0).localScale.x, 1, 1);             
             }
 
+
+            if (gun.reloading)
+            {
+                reloadingObj.SetActive(true);
+            }
+
+            else
+            {
+                reloadingObj.SetActive(false);
+            }
+
+            //reloading txt
+
         }
 
         if (canGrabWeapon) // trying to grab weapon
@@ -59,6 +74,7 @@ public class gun_aim : MonoBehaviour
     public void changeWeapon(GameObject intractingWeapon)
     {
         holdingWeapon = true;
+        gun = intractingWeapon.GetComponent<Gun>();
         dropWeapon();
         intractingWeapon.transform.SetParent(transform);
         intractingWeapon.transform.localScale = new Vector3(1, 1, 1);

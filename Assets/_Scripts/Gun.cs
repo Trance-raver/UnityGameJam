@@ -1,16 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class Gun : MonoBehaviour {
 
     public Weapon defaultGun = new Weapon();
     public bool holdingThisGun = false;
     public bool doBloom;
+    public float accuracy;
     public Sprite idelSprite;
     public Sprite holdingSprite;
 
-    private hit_pause hitPause;
+    //reload gun Stuff
+    public int reloadAfterBullets;
+    public float reloadTime;
+    private int bulletsLefttoReload;
+    [HideInInspector]
+    public bool reloading = false;
+    private bool startedReloading;
+
+    //CameraShake
+    public float magnitude = 0.7f;
+    public float roughness = 2.5f;
+    public float fadeInTime = .1f;
+    public float fadeOutTime = 1.3f;
 
     private void Start()
     {
@@ -20,38 +34,59 @@ public class Gun : MonoBehaviour {
 
         defaultGun.shootPoint = transform.GetChild(0).gameObject;
         defaultGun.rateOfFire = 0;
+        bulletsLefttoReload = reloadAfterBullets;
 
-        hitPause = FindObjectOfType<hit_pause>();
         
     }
 
     private void Update()
     {
         
-
         if (holdingThisGun)
         {
             defaultGun.sr.sprite = holdingSprite;
-            defaultGun.sr.sortingOrder = 1;
+            defaultGun.sr.sortingOrder = 2;
                  
             if (Input.GetMouseButton(0))
             {
-                if (defaultGun.rateOfFire <= 0)
+                if (!reloading)
                 {
-                    if (doBloom)
-                    {
+                    
+                    if (defaultGun.rateOfFire <= 0)
+                    {                       
+                        CameraShaker.Instance.ShakeOnce(magnitude,roughness,fadeInTime,fadeOutTime);
+                        if (doBloom)
+                        {
+                            Instantiate(defaultGun.bulletPrefab, defaultGun.shootPoint.transform.position, transform.rotation * Quaternion.Euler(0, 0, Random.Range(-accuracy, accuracy)));
+                            bulletsLefttoReload--;
+                        }
 
-                        Instantiate(defaultGun.bulletPrefab, defaultGun.shootPoint.transform.position, transform.rotation * Quaternion.Euler(0, 0, Random.Range(-10, 10)));
-                        //hitPause.freezeNow();
+                        else
+                        {
+                            Instantiate(defaultGun.bulletPrefab, defaultGun.shootPoint.transform.position, transform.rotation);
+                            bulletsLefttoReload--;
+                        }
+
+                        defaultGun.rateOfFire = defaultGun.startRateofFire;
                     }
 
-                    else
+                    if(bulletsLefttoReload <= 0 && !startedReloading)
                     {
-                        Instantiate(defaultGun.bulletPrefab, defaultGun.shootPoint.transform.position, transform.rotation);
-                        //hitPause.freezeNow();
+                        reloading = true;
+                        startedReloading = true;
+                        StartCoroutine(reload());                      
                     }
+                }
+            }
 
-                    defaultGun.rateOfFire = defaultGun.startRateofFire;
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                if(bulletsLefttoReload < reloadAfterBullets)
+                {
+                    reloading = true;
+                    startedReloading = true;
+                    StartCoroutine(reload());
+
                 }
             }
 
@@ -88,6 +123,15 @@ public class Gun : MonoBehaviour {
             defaultGun.fallCollider.enabled = false;
         }
 
+    }
+
+    IEnumerator reload()
+    {
+        startedReloading = true;
+        yield return new WaitForSeconds(reloadTime);       
+        bulletsLefttoReload = reloadAfterBullets;
+        startedReloading = false;
+        reloading = false;
     }
 
 }

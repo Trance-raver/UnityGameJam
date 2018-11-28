@@ -140,8 +140,16 @@ MonoBehaviour:
     fallCollider: {fileID: 0}
   holdingThisGun: 0
   doBloom: 0
+  accuracy: 0
   idelSprite: {fileID: 0}
   holdingSprite: {fileID: 0}
+  reloadAfterBullets: 0
+  reloadTime: 0
+  reloading: 0
+  magnitude: 0.7
+  roughness: 2.5
+  fadeInTime: 0.1
+  fadeOutTime: 1.3
 --- !u!212 &212420208469037172
 SpriteRenderer:
   m_ObjectHideFlags: 1
