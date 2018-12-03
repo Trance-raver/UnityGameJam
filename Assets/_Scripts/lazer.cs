@@ -10,6 +10,7 @@ public class lazer : MonoBehaviour {
     private Animator anim;
     private GameObject particles;
 
+
 	void Start () {
 
         anim = GetComponentInChildren<Animator>();
@@ -17,21 +18,22 @@ public class lazer : MonoBehaviour {
 
         StartCoroutine(lazerOnOff());
 	}
-	
+
+
     IEnumerator lazerOnOff()
     {
         while (true)
         {
-            
+            yield return new WaitForSecondsRealtime(lazer_Off_for);
+            anim.SetBool("canPlay", true);
             anim.SetBool("turnOn", true);
             particles.SetActive(true);
 
-            yield return new WaitForSeconds(lazer_On_for);
+            yield return new WaitForSecondsRealtime(lazer_On_for);
 
             anim.SetBool("turnOn", false);
             particles.SetActive(false);
 
-            yield return new WaitForSeconds(lazer_Off_for);
         }
 
     }

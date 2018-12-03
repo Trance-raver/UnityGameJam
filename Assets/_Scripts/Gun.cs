@@ -12,6 +12,8 @@ public class Gun : MonoBehaviour {
     public Sprite idelSprite;
     public Sprite holdingSprite;
 
+    private audio_manager audio;
+
     //reload gun Stuff
     public int reloadAfterBullets;
     public float reloadTime;
@@ -36,7 +38,9 @@ public class Gun : MonoBehaviour {
         defaultGun.rateOfFire = 0;
         bulletsLefttoReload = reloadAfterBullets;
 
-        
+        audio = FindObjectOfType<audio_manager>();
+
+
     }
 
     private void Update()
@@ -59,12 +63,14 @@ public class Gun : MonoBehaviour {
                         {
                             Instantiate(defaultGun.bulletPrefab, defaultGun.shootPoint.transform.position, transform.rotation * Quaternion.Euler(0, 0, Random.Range(-accuracy, accuracy)));
                             bulletsLefttoReload--;
+                            audio.Play(transform.name);
                         }
 
                         else
                         {
                             Instantiate(defaultGun.bulletPrefab, defaultGun.shootPoint.transform.position, transform.rotation);
                             bulletsLefttoReload--;
+                            audio.Play(transform.name);
                         }
 
                         defaultGun.rateOfFire = defaultGun.startRateofFire;

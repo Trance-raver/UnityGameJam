@@ -38,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1803621149581844}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.71, y: -5.94, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -75,10 +75,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.32031244, y: 0.0035225153}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.861145, y: 0.5888061}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -86,7 +86,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6832074, y: 0.3165967}
   m_EdgeRadius: 0
 --- !u!114 &114274872703155330
 MonoBehaviour:
@@ -102,7 +102,8 @@ MonoBehaviour:
   startSprite: {fileID: 21300004, guid: 5f2b5a807fc05184680182458e767238, type: 3}
   endSprite: {fileID: 21300006, guid: 5f2b5a807fc05184680182458e767238, type: 3}
   sparks: {fileID: 1782337458570816, guid: 00120ecace49db447bab3ea545c4e280, type: 2}
-  spd: 27
+  spd: 37
+  bulletDamage: 1.5
   spriteChangeTime: 0.02
   whatIsSolid:
     serializedVersion: 2

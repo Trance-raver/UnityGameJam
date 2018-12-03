@@ -239,6 +239,8 @@ public class player_movement : MonoBehaviour
 
     }
 
+    
+
     IEnumerator changeIdelStates()
     {
         while (true)

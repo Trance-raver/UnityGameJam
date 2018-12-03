@@ -12,6 +12,7 @@ public class playerHealth : MonoBehaviour {
 
     private SpriteRenderer sr;
     private player_movement pm;
+    private audio_manager audio;
     public hit_pause hitPause;
     public SpriteMask sm;
 
@@ -23,6 +24,7 @@ public class playerHealth : MonoBehaviour {
 
         sr = GetComponent<SpriteRenderer>();
         pm = GetComponent<player_movement>();
+        audio = FindObjectOfType<audio_manager>();
        
     }
 
@@ -58,6 +60,7 @@ public class playerHealth : MonoBehaviour {
         {
             playingHit = true;
             health -= damage;
+            audio.Play("Self_Hit");
             CameraShaker.Instance.ShakeOnce(2,3,.1f,1);
             hitPause.freezeNow(0.05f);
             healthBar.gameObject.GetComponent<Animator>().SetTrigger("hit");

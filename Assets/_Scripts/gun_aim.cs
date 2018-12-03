@@ -17,6 +17,12 @@ public class gun_aim : MonoBehaviour
     public float rotz;
 
     public SpriteRenderer sr;
+    private Transform player;
+
+    private void Start()
+    {
+        player = transform.parent;
+    }
 
     void Update()
     {
@@ -51,6 +57,21 @@ public class gun_aim : MonoBehaviour
             }
 
             //reloading txt
+
+            if (Input.GetMouseButton(0) && !gun.reloading)
+            {
+                if (rotz > 90)
+                {
+                    player.position += new Vector3(0.02f, 0, 0);
+                }
+
+                else
+                {
+                    player.position -= new Vector3(0.02f, 0, 0);
+                }
+            }
+
+            
 
         }
 

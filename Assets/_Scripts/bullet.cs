@@ -14,6 +14,7 @@ public class bullet : MonoBehaviour {
     public GameObject sparks;
 
     public float spd = 10f;
+    public float bulletDamage;
     public float spriteChangeTime;
     public LayerMask whatIsSolid;
 
@@ -27,34 +28,6 @@ public class bullet : MonoBehaviour {
 
 	}
 
-    private void Update()
-    {
-
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.right, 1.15f,whatIsSolid);
-
-        if(hitInfo.collider != null)
-        {
-            if (hitInfo.collider.CompareTag("Enemy"))
-            {
-
-                Debug.Log("EnemyHit");
-                GameObject go = Instantiate(sparks, transform.position, transform.rotation);
-                Destroy(go, 0.4f);
-                StartCoroutine(hitInfo.transform.GetComponent<Alien_patrol>().gotHit());
-            }
-
-            else
-            {
-                Debug.Log("Hit Solid");
-                GameObject go = Instantiate(sparks, transform.position, transform.rotation);
-                Destroy(go, 0.4f);
-            }
-
-            Destroy(this.gameObject);
-
-        }
-
-    }
 
     void FixedUpdate () {
 
@@ -72,6 +45,29 @@ public class bullet : MonoBehaviour {
         //transform.localScale = new Vector3(3, 2.5f, 0);
         sr.sprite = endSprite;
 
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Enemy enemy =  collision.GetComponent<Enemy>();
+            enemy.health -= bulletDamage;
+            enemy.hitByBullet();
+            GameObject go = Instantiate(sparks, transform.position, transform.rotation);
+            Destroy(go, 0.3f);
+            Destroy(this.gameObject);
+            
+        }
+
+        if(collision.gameObject.layer == 8)
+        {
+            GameObject go  = Instantiate(sparks, transform.position, transform.rotation);
+            Destroy(go, 0.3f);
+            Destroy(this.gameObject);
+        }
 
     }
 
