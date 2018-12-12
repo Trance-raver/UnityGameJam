@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 95660962036793104}
   - component: {fileID: 50481593018133366}
   - component: {fileID: 60548397059463840}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Alien_Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

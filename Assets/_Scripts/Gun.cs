@@ -22,11 +22,15 @@ public class Gun : MonoBehaviour {
     public bool reloading = false;
     private bool startedReloading;
 
+    private Vector3 pos;
+
     //CameraShake
     public float magnitude = 0.7f;
     public float roughness = 2.5f;
     public float fadeInTime = .1f;
     public float fadeOutTime = 1.3f;
+
+    public int gunNumberForAudio;
 
     private void Start()
     {
@@ -40,7 +44,7 @@ public class Gun : MonoBehaviour {
 
         audio = FindObjectOfType<audio_manager>();
 
-
+        pos = transform.position;
     }
 
     private void Update()
@@ -50,6 +54,7 @@ public class Gun : MonoBehaviour {
         {
             defaultGun.sr.sprite = holdingSprite;
             defaultGun.sr.sortingOrder = 2;
+            Debug.Log(transform.tag + "_" + gunNumberForAudio);
                  
             if (Input.GetMouseButton(0))
             {
@@ -63,14 +68,14 @@ public class Gun : MonoBehaviour {
                         {
                             Instantiate(defaultGun.bulletPrefab, defaultGun.shootPoint.transform.position, transform.rotation * Quaternion.Euler(0, 0, Random.Range(-accuracy, accuracy)));
                             bulletsLefttoReload--;
-                            audio.Play(transform.name);
+                            audio.Play(transform.tag + "_" + gunNumberForAudio);
                         }
 
                         else
                         {
                             Instantiate(defaultGun.bulletPrefab, defaultGun.shootPoint.transform.position, transform.rotation);
                             bulletsLefttoReload--;
-                            audio.Play(transform.name);
+                            audio.Play(transform.tag + "_" + gunNumberForAudio);
                         }
 
                         defaultGun.rateOfFire = defaultGun.startRateofFire;
@@ -107,6 +112,8 @@ public class Gun : MonoBehaviour {
         {
             defaultGun.sr.sprite = idelSprite;
             defaultGun.sr.sortingOrder = 2;
+            transform.position = pos + new Vector3(0, Mathf.Sin(Time.time * 5f) * 0.3f , 0);
+
         }
 
 
@@ -116,6 +123,7 @@ public class Gun : MonoBehaviour {
     public void dropGun()
     {       
         defaultGun.rb.bodyType = RigidbodyType2D.Dynamic;
+        pos = transform.position;
         defaultGun.fallCollider.enabled = true;
     }
 
@@ -127,6 +135,7 @@ public class Gun : MonoBehaviour {
             defaultGun.rb.bodyType = RigidbodyType2D.Kinematic;
             defaultGun.rb.velocity = Vector3.zero;
             defaultGun.fallCollider.enabled = false;
+            
         }
 
     }

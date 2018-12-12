@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 95664467024118666}
   - component: {fileID: 50726513272419050}
   - component: {fileID: 61575247157151432}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Alien_Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}

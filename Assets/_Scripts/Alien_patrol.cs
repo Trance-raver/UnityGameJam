@@ -98,10 +98,12 @@ public class Alien_patrol : MonoBehaviour {
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (transform.localScale.x > 0)
+ 
+            if (collision.gameObject.transform.position.x < transform.position.x)
             {
                 collision.gameObject.GetComponent<player_movement>().knockBackFromRight = true;
             }
+          
 
             else
             {

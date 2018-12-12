@@ -30,17 +30,21 @@ public class gun_aim : MonoBehaviour
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         rotz = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(0, 0, rotz);  
+        rotz = Mathf.Abs(rotz);
 
+        float rot = Mathf.Clamp(rotz, 0, 180f);
+
+        transform.rotation = Quaternion.Euler(0, 0, rot);
+     
 
         if (holdingWeapon)
         {
-            if (rotz > 90)
+            if (transform.localEulerAngles.z > 90 )
             {
-                transform.GetChild(0).localScale = new Vector3(transform.GetChild(0).localScale.x, -1, 1);            
+                transform.GetChild(0).localScale = new Vector3(transform.GetChild(0).localScale.x, -1, 1);
             }
 
-            else if (rotz <= 90)
+            else if (transform.localEulerAngles.z <= 90 ) 
             {
                 transform.GetChild(0).localScale = new Vector3(transform.GetChild(0).localScale.x, 1, 1);             
             }

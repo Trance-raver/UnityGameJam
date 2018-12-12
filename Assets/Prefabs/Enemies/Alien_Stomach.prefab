@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212121151669115252}
   - component: {fileID: 61165377191726156}
   - component: {fileID: 50066788138403834}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Alien_Stomach
   m_TagString: Untagged
   m_Icon: {fileID: 0}

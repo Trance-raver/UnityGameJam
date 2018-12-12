@@ -89,7 +89,7 @@ public class player_movement : MonoBehaviour
             {
 
                 sr.flipX = false;
-                dropWeaponPoint.transform.localPosition = new Vector3(1.031f, -0.219f, 0);
+                dropWeaponPoint.transform.localPosition = new Vector3(0.281f, -0.219f, 0);
                 //knockBackFromRight = false;
 
             }
@@ -97,7 +97,7 @@ public class player_movement : MonoBehaviour
             else if (aimer.rotz > 90)
             {
                 sr.flipX = true;
-                dropWeaponPoint.transform.localPosition = new Vector3(-1.031f, -0.219f, 0);
+                dropWeaponPoint.transform.localPosition = new Vector3(-0.281f, -0.219f, 0);
                 //knockBackFromRight = true;
             }
 
